@@ -9,3 +9,7 @@ class RecipeSource(models.Model):
     """Model representing a recipe source"""
     name = models.CharField(max_length=100, primary_key=True)
     url = models.URLField(max_length=200, blank=True, null=True)
+
+class ImageSource(models.Model):
+    """Model representing an image source"""
+    name = models.CharField(max_length=100, primary_key=True)
