@@ -18,10 +18,6 @@ class Drink(models.Model):
     recipe_source = models.ForeignKey(RecipeSource, blank=True, null=True, on_delete=models.PROTECT)
     recipe_url = models.URLField(max_length=200, blank=True, null=True)
 
-class ImageSource(models.Model):
-    """Model representing an image source"""
-    name = models.CharField(max_length=100, primary_key=True)
-
 class Episode(models.Model):
     """Model representing an Episode"""
     number = models.IntegerField(primary_key=True)
@@ -31,3 +27,14 @@ class Episode(models.Model):
     url = models.URLField(max_length=200, default='https://play.acast.com/s/thesloppyboys/')
     instagram_post_url = models.URLField(max_length=200, blank=True, null=True)
     twitter_post_url = models.URLField(max_length=200, blank=True, null=True)
+
+class ImageSource(models.Model):
+    """Model representing an image source"""
+    name = models.CharField(max_length=100, primary_key=True)
+
+class Image(models.Model):
+    """Model representing an image"""
+    drink = models.ForeignKey(Drink, on_delete=models.PROTECT)
+    image = models.ImageField(max_length=200, unique=True, upload_to='images')
+    source = models.ForeignKey(ImageSource, on_delete=models.PROTECT)
+    recipe = models.BooleanField(default=False)
