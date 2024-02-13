@@ -21,3 +21,13 @@ class Drink(models.Model):
 class ImageSource(models.Model):
     """Model representing an image source"""
     name = models.CharField(max_length=100, primary_key=True)
+
+class Episode(models.Model):
+    """Model representing an Episode"""
+    number = models.IntegerField(primary_key=True)
+    drink = models.ForeignKey(Drink, on_delete=models.PROTECT)
+    title = models.CharField(max_length=200, unique=True)
+    date = models.DateField(unique=True)
+    url = models.URLField(max_length=200, default='https://play.acast.com/s/thesloppyboys/')
+    instagram_post_url = models.URLField(max_length=200, blank=True, null=True)
+    twitter_post_url = models.URLField(max_length=200, blank=True, null=True)
