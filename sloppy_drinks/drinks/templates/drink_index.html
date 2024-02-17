@@ -1,20 +1,6 @@
 {% extends "base.html" %}
-
 {% load static %}
+
 {% block page_content %}
-    <h1>Drinks</h1>
-    <div class="row"></div>
-        {% for image in images %}
-            <div class="card mb-2">
-                <img class="card-img-top" src="{% static 'images/'|add:image.filename %}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ image.drink.name }}</h5>
-                    <a href="{% url 'drink_detail' image.drink.slug %}"
-                    class="btn btn-primary">
-                        Read More
-                    </a>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+    
 {% endblock page_content %}
