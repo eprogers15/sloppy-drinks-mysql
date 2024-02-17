@@ -1,0 +1,16 @@
+body {
+    background-color: #99D8D0;
+}
+
+footer {
+    background-color: #363636;
+}
+
+.footer-icon {
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.footer-text {
+    color: white;
+}
