@@ -35,13 +35,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'drinks.apps.DrinksConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drinks.apps.DrinksConfig',
 ]
 
 MIDDLEWARE = [
@@ -59,9 +59,7 @@ ROOT_URLCONF = 'sloppy_drinks.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        "DIRS": [
-            BASE_DIR / "templates/",
-        ],
+        "DIRS": [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -35,6 +35,6 @@ class ImageSource(models.Model):
 class Image(models.Model):
     """Model representing an image"""
     drink = models.ForeignKey(Drink, on_delete=models.PROTECT)
-    image = models.ImageField(max_length=200, unique=True, upload_to='images/')
+    filename = models.CharField(max_length=240, primary_key=True)
     source = models.ForeignKey(ImageSource, on_delete=models.PROTECT)
     recipe = models.BooleanField(default=False)

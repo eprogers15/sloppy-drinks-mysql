@@ -8,11 +8,11 @@ def drink_index(request):
     context = {
         "images": images,
     }
-    return render(request, "drinks/drink_index.html", context)
+    return render(request, "drink_index.html", context)
 
 def drink_detail(request, slug):
     drink = Drink.objects.get(slug=slug)
     context = {
         "drink": drink
     }
-    return render(request, "drinks/drink_detail.html", context)
+    return render(request, "drink_detail.html", context)

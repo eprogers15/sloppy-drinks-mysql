@@ -6,7 +6,7 @@
         {% load static %}
         {% for image in images %}
             <div class="card mb-2">
-                <img class="card-img-top" src="{% static 'drinks/'|add:image.image.url %}">
+                <img class="card-img-top" src="{% static 'images/'|add:image.filename %}">
                 <div class="card-body">
                     <h5 class="card-title">{{ image.drink.name }}</h5>
                     <a href="{% url 'drink_detail' image.drink.slug %}"
