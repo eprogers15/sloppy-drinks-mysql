@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
+{% load static %}
 {% block page_content %}
     <h1>Drinks</h1>
-    <div class="row">
-        {% load static %}
+    <div class="row"></div>
         {% for image in images %}
             <div class="card mb-2">
                 <img class="card-img-top" src="{% static 'images/'|add:image.filename %}">
