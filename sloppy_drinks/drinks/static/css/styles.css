@@ -2,12 +2,20 @@ body {
     background-color: #99D8D0;
 }
 
+nav {
+    background-color: #363636;
+}
+
+.navbar-brand {
+    color: #ffffff;
+}
+
 footer {
     background-color: #363636;
 }
 
 .footer-icon {
-    border: 1px solid white;
+    border: 1px solid #ffffff;
     border-radius: 50%;
 }
 
