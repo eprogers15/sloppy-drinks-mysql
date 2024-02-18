@@ -1,17 +1,30 @@
 body {
-    background-color: #99D8D0;
+    background-color: #ffffff;
 }
 
 nav {
-    background-color: #363636;
+    background-color: #4CD3C2;
+}
+
+.navbar-icon {
+    border: 1px solid #ffffff;
+    border-radius: 50%;
 }
 
 .navbar-brand {
     color: #ffffff;
 }
 
+nav .collapse {
+    color: #363636;
+}
+
+nav .collapse a {
+    color: #363636;
+}
+
 footer {
-    background-color: #363636;
+    background-color: #4CD3C2;
 }
 
 .footer-icon {
@@ -20,5 +33,5 @@ footer {
 }
 
 .footer-text {
-    color: white;
+    color: #ffffff;
 }
