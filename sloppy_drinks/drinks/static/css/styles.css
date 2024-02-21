@@ -11,16 +11,17 @@ nav {
     border-radius: 50%;
 }
 
-.navbar-brand {
+.navbar-brand, .navbar-brand:hover {
     color: #ffffff;
+    text-decoration: none;
 }
 
 nav .collapse {
     color: #363636;
 }
 
-nav .collapse a {
-    color: #363636;
+.search_bar {
+    background-color: #363636;
 }
 
 footer {
