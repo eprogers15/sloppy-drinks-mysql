@@ -24,7 +24,8 @@ class Episode(models.Model):
     drink = models.ForeignKey(Drink, on_delete=models.PROTECT)
     title = models.CharField(max_length=200, unique=True)
     date = models.DateField(unique=True)
-    url = models.URLField(max_length=200, default='https://play.acast.com/s/thesloppyboys/')
+    acast_url = models.URLField(max_length=200, default='https://play.acast.com/s/thesloppyboys/')
+    spotify_url = models.URLField(max_length=200, default='https://open.spotify.com/show/3qFjDCQ16YrjFw5ufNpV3c?si=4202cac534494845')
     instagram_post_url = models.URLField(max_length=200, blank=True, null=True)
     twitter_post_url = models.URLField(max_length=200, blank=True, null=True)
 
