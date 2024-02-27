@@ -12,11 +12,13 @@ def drink_index(request):
 
 def drink_detail(request, slug):
     drink = Drink.objects.get(slug=slug)
-    images = Image.objects.filter(drink=drink)
+    recipe_image = Image.objects.filter(drink=drink, recipe=True)[0]
+    non_recipe_images = Image.objects.filter(drink=drink, recipe=False)
     episodes = Episode.objects.filter(drink=drink)
     context = {
         "drink": drink,
-        "images": images,
+        "recipe_image": recipe_image,
+        "non_recipe_images": non_recipe_images,
         "episodes": episodes,
     }
     return render(request, "drink_detail.html", context)
