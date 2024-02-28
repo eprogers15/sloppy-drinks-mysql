@@ -1,13 +1,24 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from drinks.models import Drink, Image, Episode
 
 # Create your views here.
 def drink_index(request):
-    images = Image.objects.filter(recipe=True)
+    all_images = Image.objects.filter(recipe=True)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(all_images, 6)
 
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger:
+        images = paginator.page(1)
+    except EmptyPage:
+        images = paginator.page(paginator.num_pages)
+    
     context = {
         "images": images,
     }
+
     return render(request, "drink_index.html", context)
 
 def drink_detail(request, slug):

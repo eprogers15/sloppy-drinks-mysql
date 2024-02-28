@@ -7,7 +7,7 @@
         <div class="col-md-8 py-3">
             <div class="input-group">
                 <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Sort by:</button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#">A-Z</a></li>
@@ -23,8 +23,8 @@
 
 {% block page_content %}
 <div class="album py-3 bg-light">
-    <div class="container infinite-container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 infinite-container">
             {% for image in images %}
             <div class="col infinite-item">
                 <div class="card shadow-sm">
@@ -35,8 +35,15 @@
                 </div>
             </div>
             {% endfor %}
-            <a class="infinite-more-link" href="/next/page">More</a>
         </div>
+        {% if images.has_next %}
+        <a class="infinite-more-link" href="?page={{ images.next_page_number }}">More</a>
+        {% endif %}
+        <script>
+            var infinite = new Waypoint.Infinite({
+                element: $('.infinite-container')[0]
+            });
+        </script>
     </div>
 </div>
 {% endblock page_content %}
