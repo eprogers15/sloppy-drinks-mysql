@@ -17,7 +17,3 @@ $(window).resize(function () {
     $("body").css("paddingTop", padding);
   }, 500);
 });
-
-var infinite = new Waypoint.Infinite({
-  element: $(".infinite-container")[0],
-});

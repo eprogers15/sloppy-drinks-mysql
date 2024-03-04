@@ -6,34 +6,48 @@ from drinks.models import Drink, Image, Episode
 
 # Create your views here.
 def drink_index(request):
-    page_num = request.GET.get('page', 1)
-    images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
-    page = Paginator(object_list=images, per_page=6).get_page(page_num)
+    page = request.GET.get('page', 1)
+    all_images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
+    paginator = Paginator(all_images, 6)
+
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger:
+        images = paginator.page(1)
+    except EmptyPage:
+        images = paginator.page(paginator.num_pages)
 
     return render(
         request=request,
         template_name='drink_index.html',
         context={
-            'page': page,
+            'images': images,
         }
     )
 
 def drink_index_partial(request):
     if request.htmx:
+        page = request.GET.get('page', 1)
         search = request.GET.get('q')
-        page_num = request.GET.get('page', 1)
 
         if search:
-            images = Image.objects.filter((Q(drink__name__icontains=search) | Q(drink__ingredients__name__icontains=search)) & Q(recipe=True)).distinct().order_by('drink__name')
+            all_images = Image.objects.filter((Q(drink__name__icontains=search) | Q(drink__ingredients__name__icontains=search)) & Q(recipe=True)).distinct().order_by('drink__name')
         else:
-            images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
-        page = Paginator(object_list=images, per_page=6).get_page(page_num)
+            all_images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
+        paginator = Paginator(all_images, 6)
+
+        try:
+            images = paginator.page(page)
+        except PageNotAnInteger:
+            images = paginator.page(1)
+        except EmptyPage:
+            images = paginator.page(paginator.num_pages)
 
         return render(
           request=request,
           template_name='drink_index_partial.html',
           context={
-              'page': page
+              'images': images,
           }
       )
     return render(request, 'drink_index_partial.html')
