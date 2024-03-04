@@ -1,25 +1,42 @@
+
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from drinks.models import Drink, Image, Episode
 
 # Create your views here.
 def drink_index(request):
-    all_images = Image.objects.filter(recipe=True)
-    page = request.GET.get('page', 1)
-    paginator = Paginator(all_images, 6)
+    page_num = request.GET.get('page', 1)
+    images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
+    page = Paginator(object_list=images, per_page=6).get_page(page_num)
 
-    try:
-        images = paginator.page(page)
-    except PageNotAnInteger:
-        images = paginator.page(1)
-    except EmptyPage:
-        images = paginator.page(paginator.num_pages)
-    
-    context = {
-        "images": images,
-    }
+    return render(
+        request=request,
+        template_name='drink_index.html',
+        context={
+            'page': page,
+        }
+    )
 
-    return render(request, "drink_index.html", context)
+def drink_index_partial(request):
+    if request.htmx:
+        search = request.GET.get('q')
+        page_num = request.GET.get('page', 1)
+
+        if search:
+            images = Image.objects.filter((Q(drink__name__icontains=search) | Q(drink__ingredients__name__icontains=search)) & Q(recipe=True)).distinct().order_by('drink__name')
+        else:
+            images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
+        page = Paginator(object_list=images, per_page=6).get_page(page_num)
+
+        return render(
+          request=request,
+          template_name='drink_index_partial.html',
+          context={
+              'page': page
+          }
+      )
+    return render(request, 'drink_index_partial.html')
 
 def drink_detail(request, slug):
     drink = Drink.objects.get(slug=slug)

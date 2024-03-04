@@ -5,16 +5,12 @@
 <div class="container-fluid shadow-sm search_bar">
     <div class="row justify-content-center">
         <div class="col-md-8 py-3">
-            <div class="input-group">
-                <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">Sort by:</button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">A-Z</a></li>
-                    <li><a class="dropdown-item" href="#">Z-A</a></li>
-                    <li><a class="dropdown-item" href="#">New-Old</a></li>
-                    <li><a class="dropdown-item" href="#">Old-New</a></li>
-                </ul>
+            <div class="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" name="q"
+                        placeholder="Search by drink name or ingredient" hx-get="{% url 'drink_index_partial' %}" hx-target="#results"
+                        hx-trigger="input delay:0.2s">
+                </div>
             </div>
         </div>
     </div>
@@ -22,11 +18,11 @@
 {% endblock search_bar %}
 
 {% block page_content %}
-<div class="album py-3 bg-light">
+<div class="album py-3 bg-light" id="results">
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 infinite-container">
-            {% for image in images %}
-            <div class="col infinite-item">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for image in page.object_list %}
+            <div class="col result">
                 <div class="card shadow-sm">
                     <a href="{% url 'drink_detail' image.drink.slug %}">
                         <img class="card-img-top" src="{% static 'images/'|add:image.filename %}"
@@ -36,14 +32,33 @@
             </div>
             {% endfor %}
         </div>
-        {% if images.has_next %}
-        <a class="infinite-more-link" href="?page={{ images.next_page_number }}">More</a>
-        {% endif %}
-        <script>
-            var infinite = new Waypoint.Infinite({
-                element: $('.infinite-container')[0]
-            });
-        </script>
+        <div class="pagination">
+            {% if page %}
+            {% if page.number != 1 %}
+            <a class="page first-page" href="?q={{ request.GET.q }}&page=1">
+                &laquo; First
+            </a>
+            {% endif %}
+            {% if page.has_previous %}
+            <a class="page" href="?q={{ request.GET.q }}&page={{ page.previous_page_number }}">
+                {{ page.previous_page_number }}
+            </a>
+            {% endif %}
+            <span class="page">
+                {{ page.number }}
+            </span>
+            {% if page.has_next %}
+            <a class="page" href="?q={{ request.GET.q }}&page={{ page.next_page_number }}">
+                {{ page.next_page_number }}
+            </a>
+            {% endif %}
+            {% if page.number != page.paginator.num_pages %}
+            <a class="page last-page" href="?q={{ request.GET.q }}&page={{ page.paginator.num_pages }}">
+                &raquo; Last
+            </a>
+            {% endif %}
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock page_content %}

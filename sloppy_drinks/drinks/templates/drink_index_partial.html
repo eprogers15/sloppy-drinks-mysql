@@ -1,0 +1,47 @@
+{% load static %}
+
+{% block page_content %}
+<div id="results">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for image in page.object_list %}
+            <div class="col result">
+                <div class="card shadow-sm">
+                    <a href="{% url 'drink_detail' image.drink.slug %}">
+                        <img class="card-img-top" src="{% static 'images/'|add:image.filename %}"
+                            alt="{{ image.drink.name }}">
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {% if page %}
+                {% if page.number != 1 %}
+                    <a class="page first-page" href="?q={{ request.GET.q }}&page=1">
+                      &laquo; First
+                    </a>
+                {% endif %}
+                {% if page.has_previous %}
+                    <a class="page" href="?q={{ request.GET.q }}&page={{ page.previous_page_number }}">
+                      {{ page.previous_page_number }}
+                    </a>
+                {% endif %}
+                <span class="page">
+                  {{ page.number }}
+                </span>
+                {% if page.has_next %}
+                    <a  class="page" href="?q={{ request.GET.q }}&page={{ page.next_page_number }}">
+                      {{ page.next_page_number }}
+                    </a>
+                {% endif %}
+                {% if page.number != page.paginator.num_pages %}
+                    <a  class="page last-page" href="?q={{ request.GET.q }}&page={{ page.paginator.num_pages }}">
+                      &raquo; Last
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock page_content %}
