@@ -1,13 +1,12 @@
-
 from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from drinks.models import Drink, Image, Episode
 
 # Create your views here.
 def drink_index(request):
     page_num = request.GET.get('page', 1)
-    images = Image.objects.filter(recipe=True).order_by('drink__name')
+    images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
     page = Paginator(object_list=images, per_page=6).get_page(page_num)
 
     return render(
@@ -26,7 +25,7 @@ def drink_index_partial(request):
         if search:
             images = Image.objects.filter((Q(drink__name__icontains=search) | Q(drink__ingredients__name__icontains=search)) & Q(recipe=True)).distinct().order_by('drink__name')
         else:
-            images = Image.objects.filter(recipe=True).order_by('drink__name')
+            images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
         page = Paginator(object_list=images, per_page=6).get_page(page_num)
 
         return render(
@@ -36,7 +35,6 @@ def drink_index_partial(request):
                 'page': page
             }
         )
-    return render(request, 'drink_index.html')
 
 def drink_detail(request, slug):
     drink = Drink.objects.get(slug=slug)

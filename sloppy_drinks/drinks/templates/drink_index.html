@@ -2,23 +2,8 @@
 
 {% load static %}
 
-{% block search_bar %}
-<div class="container-fluid shadow-sm search_bar">
-    <div class="row justify-content-center">
-        <div class="col-md-8 py-3">
-            <div class="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" name="q"
-                        placeholder="Search by drink name or ingredient" hx-get="{% url 'drink_index_partial' %}"
-                        hx-target="#results" hx-trigger="input delay:0.2s">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock search_bar %}
-
 {% block page_content %}
+{% include "search_bar.html" %}
 <div class="album py-3 bg-light" id="results">
     {% include 'drink_index_partial.html' %}
 </div>
