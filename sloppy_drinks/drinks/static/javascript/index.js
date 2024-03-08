@@ -17,3 +17,17 @@ $(window).resize(function () {
     $("body").css("paddingTop", padding);
   }, 500);
 });
+
+$(".dropdown-item").click(function() {
+  let new_sort_order = this.attributes.value.value;
+  $("#sort-button").attr("value", new_sort_order);
+  $("#sort-button").text("Sort by: " + this.text);
+  $(".active").removeClass("active");
+  $(this).addClass("active");
+  $("#search-bar").attr("hx-vals", '{"sort": "' + new_sort_order + '"}');
+});
+
+function getSortOrder() {
+  let sort_order = $("#sort-button").attr("value");
+  return sort_order;
+};

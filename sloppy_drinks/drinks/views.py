@@ -20,12 +20,21 @@ def drink_index(request):
 def drink_index_partial(request):
     if request.htmx:
         search = request.GET.get('q')
+        sort = request.GET.get('sort')
+        print(sort)
         page_num = request.GET.get('page', 1)
 
-        if search:
-            images = Image.objects.filter((Q(drink__name__icontains=search) | Q(drink__ingredients__name__icontains=search)) & Q(recipe=True)).distinct().order_by('drink__name')
+        if sort == 'alpha-asc':
+            sort_order = 'drink__name'
+        elif sort == 'alpha-desc':
+            sort_order = '-drink__name'
         else:
-            images = Image.objects.filter(recipe=True).distinct().order_by('drink__name')
+            sort_order = 'drink__name'
+
+        if search:
+            images = Image.objects.filter((Q(drink__name__icontains=search) | Q(drink__ingredients__name__icontains=search)) & Q(recipe=True)).distinct().order_by(sort_order)
+        else:
+            images = Image.objects.filter(recipe=True).distinct().order_by(sort_order)
         page = Paginator(object_list=images, per_page=6).get_page(page_num)
 
         return render(
