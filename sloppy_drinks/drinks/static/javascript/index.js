@@ -21,9 +21,9 @@ $(window).resize(function () {
 $(".dropdown-item").click(function() {
   let new_sort_order = this.attributes.value.value;
   $("#sort-button").attr("value", new_sort_order);
-  $("#sort-button").text("Sort by: " + this.text);
-  $(".active").removeClass("active");
-  $(this).addClass("active");
+  //$("#sort-button").text("Sort by: " + this.text);
+  $(".active-sort").removeClass("active-sort");
+  $(this).addClass("active-sort");
   $("#search-bar").attr("hx-vals", '{"sort": "' + new_sort_order + '"}');
 });
 

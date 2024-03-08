@@ -24,6 +24,10 @@ nav .collapse {
     background-color: #363636;
 }
 
+.dropdown-menu .active-sort {
+    background-color: #FFBCBC;
+}
+
 footer {
     background-color: #4CD3C2;
 }
