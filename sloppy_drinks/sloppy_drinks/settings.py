@@ -27,10 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['sloppydrinks.com', 'www.sloppydrinks.com']
-
+#ALLOWED_HOSTS = ['sloppydrinks.com', 'www.sloppydrinks.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -130,9 +130,9 @@ USE_TZ = True
 
 STATIC_ROOT = '/home/dh_dch6fh/sloppydrinks.com/public/sloppy_drinks/static/'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'static'),
+#]
 MEDIA_ROOT = '/home/dh_dch6fh/sloppydrinks.com/public/sloppy_drinks/media/'
 
 # Default primary key field type
