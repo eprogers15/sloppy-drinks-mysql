@@ -6,7 +6,7 @@
         <div class="col drink">
             <div class="card shadow-sm">
                 <a href="{% url 'drink_detail' image.drink.slug %}">
-                    <img class="card-img-top" src="{% static 'images/'|add:image.filename %}"
+                    <img class="card-img-top" src="{% static 'drinks/images/'|add:image.filename %}"
                         alt="{{ image.drink.name }}">
                 </a>
             </div>
